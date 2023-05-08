@@ -1,0 +1,55 @@
+{
+  "name": "vivasoft-component-library",
+  "version": "0.0.13",
+  "description": "vivasoft component library",
+  "main": "dist/index.cjs",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "build-lib": "rollup -c"
+  },
+  "author": "Vivasoft",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/preset-env": "^7.21.5",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.21.5",
+    "@rollup/plugin-commonjs": "^24.1.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-typescript": "^11.1.0",
+    "@storybook/addon-essentials": "^7.0.7",
+    "@storybook/addon-interactions": "^7.0.7",
+    "@storybook/addon-links": "^7.0.7",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/addon-styling": "^1.0.5",
+    "@storybook/blocks": "^7.0.7",
+    "@storybook/react": "^7.0.7",
+    "@storybook/react-webpack5": "^7.0.7",
+    "@storybook/testing-library": "^0.0.14-next.2",
+    "@types/react": "^18.2.0",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.23",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^3.21.3",
+    "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "storybook": "^7.0.7",
+    "typescript": "^5.0.4"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "rollup-plugin-copy": "^3.4.0",
+    "tailwindcss": "^3.3.2"
+  }
+}
