@@ -54,6 +54,29 @@ Set up the Tailwind directives inside the global css file:
 
 ```javascript
 import { Table, Button } from 'vivasoft-component-library'
+
+export default function Home() {
+  return (
+    <Table
+      dataSource={dataSource}
+      columns={columns}
+      bordered={true}
+      fontFamily="font-inter"
+      className="tableRootClass"
+      borderProps={{
+        border: "border-collapse",
+        width: "border-b-[1px]",
+        color: "border-[#dbdef0]",
+      }}
+      rowClassName={(row) => {
+        if (row.key % 2 === 0) {
+          return "even-row";
+        }
+        return "odd-row";
+      }}
+    />
+  );
+}
 ```
 
 ## Contributing
