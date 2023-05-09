@@ -55,6 +55,76 @@ Set up the Tailwind directives inside the global css file:
 ```javascript
 import { Table, Button } from 'vivasoft-component-library'
 
+const dataSource = [
+  {
+    key: "1",
+    name: "Mike",
+    age: 32,
+    address: "10 Downing Street",
+  },
+  {
+    key: "2",
+    name: "John",
+    age: 42,
+    address: "12 Downing Street",
+  },
+  {
+    key: "3",
+    name: "Sherlock",
+    age: 52,
+    address: "225 Baker St",
+  },
+  {
+    key: "4",
+    name: "John Watson",
+    age: 53,
+    address: "225 Baker St",
+  },
+];
+
+const columns = [
+  {
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
+  },
+  {
+    title: "Age",
+    dataIndex: "age",
+    key: "age",
+  },
+  {
+    title: "Address",
+    dataIndex: "address",
+    key: "address",
+    render: (text, row) => {
+      return <span>{`${text} ${row.name}`}</span>;
+    },
+  },
+  {
+    title: "Action",
+    key: "action",
+    dataIndex: "action",
+    render: (val, row) => (
+      <div>
+        <button
+          className="text-yellow-500"
+          onClick={() => console.log("add edit logic for row ", row.key)}
+        >
+          Edit
+        </button>
+        /
+        <button
+          className="text-red-500"
+          onClick={() => console.log("add delete logic for row ", row.key)}
+        >
+          Delete
+        </button>
+      </div>
+    ),
+  },
+];
+
 export default function Home() {
   return (
     <Table

@@ -2868,3 +2868,4 @@ var VsTable = function (_a) {
 
 exports.Button = Button;
 exports.Table = VsTable;
+//# sourceMappingURL=index.cjs.map

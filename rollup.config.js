@@ -12,12 +12,12 @@ export default [
       {
         file: "dist/index.cjs",
         format: "cjs",
-        sourcemap: false,
+        sourcemap: true,
       },
       {
         file: "dist/index.es.js",
         format: "es",
-        sourcemap: false,
+        sourcemap: true,
       },
     ],
     plugins: [

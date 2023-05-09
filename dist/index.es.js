@@ -2865,3 +2865,4 @@ var VsTable = function (_a) {
 };
 
 export { Button, VsTable as Table };
+//# sourceMappingURL=index.es.js.map
