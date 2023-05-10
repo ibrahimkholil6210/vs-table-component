@@ -4,6 +4,7 @@ import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
 import postcss from "rollup-plugin-postcss";
 import copy from "rollup-plugin-copy";
+import external from 'rollup-plugin-peer-deps-external'
 
 export default [
   {
@@ -24,11 +25,13 @@ export default [
       resolve(),
       commonjs(),
       typescript({ tsconfig: "./tsconfig.json" }),
+      external(),
       postcss(),
       copy({
         targets: [{ src: "README.md", dest: "dist" }],
       }),
     ],
+    external: ["react", "react-dom"],
   },
   {
     input: "src/index.ts",

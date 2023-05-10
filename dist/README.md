@@ -87,6 +87,7 @@ const columns = [
     title: "Name",
     dataIndex: "name",
     key: "name",
+    sortable: true // add property sortable with boolean value true to add sorting to a column. If this property doesn't exist in a column of set to false then the column will not have any sorting.
   },
   {
     title: "Age",

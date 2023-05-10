@@ -1,11 +1,13 @@
-import React$1, { HTMLAttributes } from 'react';
-
-interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
-    label: string;
+/// <reference types="react" />
+export type SortConfig<T> = {
+    key: keyof T;
+    direction: SortDirection;
+};
+export declare enum SortDirection {
+    Ascending = "ascending",
+    Descending = "descending"
 }
-declare const Button: (props: ButtonProps) => JSX.Element;
-
-interface TableProps<T> {
+export interface TableProps<T> {
     dataSource: T[];
     columns: Column<T>[];
     className?: string;
@@ -24,7 +26,7 @@ interface TableProps<T> {
     fontFamily?: string;
     rowClassName?: (row: T[keyof T]) => string;
 }
-interface Column<T> {
+export interface Column<T> {
     title: string;
     key: string;
     dataIndex: keyof T;
@@ -32,7 +34,4 @@ interface Column<T> {
     sortable?: boolean;
 }
 type Sizing = "sm" | "md" | "lg" | "xl";
-
-declare const VsTable: React$1.FC<TableProps<any>>;
-
-export { Button, VsTable as Table };
+export {};

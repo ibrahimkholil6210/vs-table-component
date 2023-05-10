@@ -1,5 +1,6 @@
 import React from "react";
-
+import useSortableData from "./useSortable";
+import { Column, SortDirection, TableProps } from "./types";
 interface Person {
   key: string;
   name: string;
@@ -39,16 +40,19 @@ export const columns = [
     title: "Name",
     dataIndex: "name",
     key: "name",
+    sortable: true,
   },
   {
     title: "Age",
     dataIndex: "age",
     key: "age",
+    sortable: true,
   },
   {
     title: "Address",
     dataIndex: "address",
     key: "address",
+    sortable: true,
     render: (text: string, row: Person) => {
       return <span>{`${text} ${row.name}`}</span>;
     },
@@ -76,35 +80,6 @@ export const columns = [
     ),
   },
 ];
-
-interface Column<T> {
-  title: string;
-  key: string;
-  dataIndex: keyof T;
-  render?: (val: T, row: T[keyof T]) => React.ReactNode;
-}
-
-type Sizing = "sm" | "md" | "lg" | "xl";
-
-export interface TableProps<T> {
-  dataSource: T[];
-  columns: Column<T>[];
-  className?: string;
-  bordered: boolean;
-  /** borderProps will only work if bordered is set to true and each properties value should be tailwind class */
-  borderProps?: {
-    border?: string;
-    /** provide tailwind border class */
-    width?: string;
-    /** provide tailwind color class */
-    color?: string;
-  };
-  /** provide tailwind theme specific font sizing sm,md,lg,xl */
-  fontSize?: Sizing;
-  /** provide tailwind theme specific font family */
-  fontFamily?: string;
-  rowClassName?: (row: T[keyof T]) => string;
-}
 
 const FONT_WEIGHT = {
   sm: "font-ligt",
@@ -135,6 +110,40 @@ const VsTable: React.FC<TableProps<any>> = ({
     width = "border",
     color = "border-slate-100",
   } = borderProps || {};
+
+  const { sortedData, handleSort, sortConfig } = useSortableData(dataSource);
+
+  const renderArrow = (c: Column<any>) => {
+    return (
+      <span className="flex flex-col flex-wrap">
+        <div
+          style={{
+            width: "100%",
+            ...(sortConfig &&
+              sortConfig.key === c.key &&
+              sortConfig.direction === SortDirection.Ascending && {
+                color: "red",
+              }),
+          }}
+        >
+          ▲
+        </div>
+        <div
+          style={{
+            width: "100%",
+            ...(sortConfig &&
+              sortConfig.key === c.key &&
+              sortConfig.direction === SortDirection.Descending && {
+                color: "red",
+              }),
+          }}
+        >
+          ▼
+        </div>
+      </span>
+    );
+  };
+
   return (
     <div>
       <table
@@ -143,30 +152,40 @@ const VsTable: React.FC<TableProps<any>> = ({
         } ${className}`}
       >
         <thead>
-          <tr className={`${bordered && `${width} ${color}`} ${FONT_SIZE[fontSize || "md"]} ${FONT_WEIGHT["lg"]} bg-slate-100`}>
+          <tr
+            className={`${bordered && `${width} ${color}`} ${
+              FONT_SIZE[fontSize || "md"]
+            } ${FONT_WEIGHT["lg"]} bg-slate-100`}
+          >
             {columns?.map((c) => {
               return (
                 <th
+                  onClick={() => c?.sortable && handleSort(c)}
                   className={`text-center px-8 py-4`}
                   key={c.title}
                 >
-                  {c.title}
+                  <div className="flex items-center">
+                    <span className="flex-1">{c.title}</span>
+                    {c?.sortable && renderArrow(c)}
+                  </div>
                 </th>
               );
             })}
           </tr>
         </thead>
         <tbody>
-          {dataSource?.map((d) => {
+          {sortedData?.map((d, index) => {
             const classNamesTobeAdded = rowClassName && rowClassName(d);
             return (
-              <tr className={`${classNamesTobeAdded} ${bordered && `${width} ${color}`} ${FONT_SIZE[fontSize || "md"]}`}>
+              <tr
+                key={index}
+                className={`${classNamesTobeAdded} ${
+                  bordered && `${width} ${color}`
+                } ${FONT_SIZE[fontSize || "md"]}`}
+              >
                 {columns?.map((c) => {
                   return (
-                    <td
-                      className={`text-center px-8 py-4`}
-                      key={c.key}
-                    >
+                    <td className={`text-center px-8 py-4`} key={c.key}>
                       {c.render === undefined
                         ? d[c.key]
                         : c.render(d[c.key], d)}

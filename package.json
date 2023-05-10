@@ -1,6 +1,6 @@
 {
   "name": "vivasoft-component-library",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "vivasoft component library",
   "main": "dist/index.cjs",
   "module": "dist/index.es.js",
@@ -41,6 +41,7 @@
     "react-dom": "^18.2.0",
     "rollup": "^3.21.3",
     "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "storybook": "^7.0.7",
     "typescript": "^5.0.4"
