@@ -26,6 +26,7 @@ export interface TableProps<T> {
   /** provide tailwind theme specific font family */
   fontFamily?: string;
   rowClassName?: (row: T[keyof T]) => string;
+  loading?: boolean;
 }
 
 export interface Column<T> {

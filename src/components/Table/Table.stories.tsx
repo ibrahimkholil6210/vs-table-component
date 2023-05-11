@@ -2,7 +2,6 @@ import React from "react";
 import { ComponentStory } from "@storybook/react";
 import VsTable from "./index";
 import { columns, dataSource } from "./Table";
-import "./Table.css";
 
 export default {
   title: "Components/Table",
@@ -15,7 +14,7 @@ const Template: ComponentStory<typeof VsTable> = (args) => {
 
 export const Table = Template.bind({});
 Table.args = {
-  dataSource,
+  dataSource: [],
   className: "table-component",
   columns,
   bordered: true,
@@ -30,4 +29,5 @@ Table.args = {
     }
     return "odd-row";
   },
+  loading: false,
 };

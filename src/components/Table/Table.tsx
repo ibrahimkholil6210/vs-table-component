@@ -2,6 +2,9 @@ import React from "react";
 import useSortableData from "./useSortable";
 import { Column, SortDirection, TableProps } from "./types";
 import { CaretDown, CaretUp } from "./vs-sort-icon";
+import "./Table.css";
+import NoData from "./NoData";
+
 interface Person {
   key: string;
   name: string;
@@ -106,6 +109,7 @@ const VsTable: React.FC<TableProps<any>> = ({
   fontFamily,
   rowClassName,
   className,
+  loading,
 }) => {
   const {
     border = "border-separate",
@@ -147,8 +151,20 @@ const VsTable: React.FC<TableProps<any>> = ({
     );
   };
 
+  const renderLoading = () => {
+    return (
+      <>
+        <div className="absolute top-0 left-0 w-full h-full bg-white opacity-50 flex" />
+        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+          <div className="spinner"></div>
+        </div>
+      </>
+    );
+  };
+
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto relative min-h-48">
+      {loading && renderLoading()}
       <table
         className={`bg-white min-w-full text-slate-700 ${fontFamily} ${
           bordered && border
@@ -204,6 +220,7 @@ const VsTable: React.FC<TableProps<any>> = ({
           })}
         </tbody>
       </table>
+      {sortedData?.length === 0 && <NoData />}
     </div>
   );
 };
