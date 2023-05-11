@@ -34,6 +34,7 @@ export interface Column<T> {
   dataIndex: keyof T;
   render?: (val: T, row: T[keyof T]) => React.ReactNode;
   sortable?: boolean;
+  sortIconPosition?: 'left' | 'right'
 }
 
 type Sizing = "sm" | "md" | "lg" | "xl";

@@ -1,6 +1,7 @@
 import React from "react";
 import useSortableData from "./useSortable";
 import { Column, SortDirection, TableProps } from "./types";
+import { CaretDown, CaretUp } from "./vs-sort-icon";
 interface Person {
   key: string;
   name: string;
@@ -35,12 +36,13 @@ export const dataSource: Person[] = [
   },
 ];
 
-export const columns = [
+export const columns: Column<any>[] = [
   {
     title: "Name",
     dataIndex: "name",
     key: "name",
     sortable: true,
+    sortIconPosition: "left",
   },
   {
     title: "Age",
@@ -122,32 +124,33 @@ const VsTable: React.FC<TableProps<any>> = ({
             ...(sortConfig &&
               sortConfig.key === c.key &&
               sortConfig.direction === SortDirection.Ascending && {
-                color: "red",
+                color: "#1677ff",
               }),
           }}
         >
-          ▲
+          <CaretUp />
         </div>
         <div
           style={{
             width: "100%",
+            marginTop: "-.3em",
             ...(sortConfig &&
               sortConfig.key === c.key &&
               sortConfig.direction === SortDirection.Descending && {
-                color: "red",
+                color: "#1677ff",
               }),
           }}
         >
-          ▼
+          <CaretDown />
         </div>
       </span>
     );
   };
 
   return (
-    <div>
+    <div className="overflow-x-auto">
       <table
-        className={`bg-white w-full text-slate-700 ${fontFamily} ${
+        className={`bg-white min-w-full text-slate-700 ${fontFamily} ${
           bordered && border
         } ${className}`}
       >
@@ -165,7 +168,11 @@ const VsTable: React.FC<TableProps<any>> = ({
                   key={c.title}
                 >
                   <div className="flex items-center">
-                    <span className="flex-1">{c.title}</span>
+                    <span
+                      className={`flex-1 ${c?.sortIconPosition && "order-2"}`}
+                    >
+                      {c.title}
+                    </span>
                     {c?.sortable && renderArrow(c)}
                   </div>
                 </th>
